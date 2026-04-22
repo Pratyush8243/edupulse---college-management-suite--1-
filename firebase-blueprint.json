@@ -1,0 +1,135 @@
+{
+  "entities": {
+    "Admission": {
+      "title": "Admissions",
+      "description": "Prospective student applications",
+      "type": "object",
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "appliedCourse": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "accepted", "rejected"] },
+        "applicationDate": { "type": "string", "format": "date-time" }
+      },
+      "required": ["firstName", "lastName", "email", "appliedCourse", "status"]
+    },
+    "Student": {
+      "title": "Students",
+      "description": "Enrolled college students",
+      "type": "object",
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "email": { "type": "string" },
+        "studentId": { "type": "string" },
+        "department": { "type": "string" },
+        "admissionDate": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["active", "graduated", "suspended"] }
+      },
+      "required": ["firstName", "lastName", "email", "studentId", "department", "status"]
+    },
+    "Course": {
+      "title": "Courses",
+      "description": "College courses",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "title": { "type": "string" },
+        "department": { "type": "string" },
+        "credits": { "type": "number" },
+        "instructor": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["code", "title", "department", "credits", "instructor"]
+    },
+    "Grade": {
+      "title": "Grades",
+      "description": "Student performance records",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "courseId": { "type": "string" },
+        "semester": { "type": "string" },
+        "year": { "type": "number" },
+        "grade": { "type": "string" },
+        "score": { "type": "number" }
+      },
+      "required": ["studentId", "courseId", "semester", "year", "grade", "score"]
+    },
+    "Book": {
+      "title": "Books",
+      "description": "Library catalog items",
+      "type": "object",
+      "properties": {
+        "isbn": { "type": "string" },
+        "title": { "type": "string" },
+        "author": { "type": "string" },
+        "category": { "type": "string" },
+        "totalCopies": { "type": "number" },
+        "availableCopies": { "type": "number" }
+      },
+      "required": ["isbn", "title", "author", "totalCopies", "availableCopies"]
+    },
+    "BorrowRecord": {
+      "title": "Borrowing Records",
+      "description": "Library book borrowing history",
+      "type": "object",
+      "properties": {
+        "bookId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "borrowDate": { "type": "string", "format": "date-time" },
+        "dueDate": { "type": "string", "format": "date-time" },
+        "returnDate": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["borrowed", "returned"] }
+      },
+      "required": ["bookId", "studentId", "borrowDate", "dueDate", "status"]
+    },
+    "TestResult": {
+      "title": "Test Results",
+      "description": "Individual test/exam performance records",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "courseId": { "type": "string" },
+        "testName": { "type": "string" },
+        "maxMarks": { "type": "number" },
+        "obtainedMarks": { "type": "number" },
+        "teacherName": { "type": "string" },
+        "date": { "type": "string", "format": "date" }
+      },
+      "required": ["studentId", "courseId", "testName", "maxMarks", "obtainedMarks", "teacherName"]
+    }
+  },
+  "firestore": {
+    "admissions": {
+      "schema": { "$ref": "#/entities/Admission" },
+      "description": "Collection of admission applications"
+    },
+    "students": {
+      "schema": { "$ref": "#/entities/Student" },
+      "description": "Collection of enrolled students"
+    },
+    "courses": {
+      "schema": { "$ref": "#/entities/Course" },
+      "description": "College course catalog"
+    },
+    "grades": {
+      "schema": { "$ref": "#/entities/Grade" },
+      "description": "Student grades per course"
+    },
+    "library_books": {
+      "schema": { "$ref": "#/entities/Book" },
+      "description": "Library inventory"
+    },
+    "library_borrows": {
+      "schema": { "$ref": "#/entities/BorrowRecord" },
+      "description": "Tracking of borrowed books"
+    },
+    "test_results": {
+      "schema": { "$ref": "#/entities/TestResult" },
+      "description": "Individual test/exam performance records"
+    }
+  }
+}
